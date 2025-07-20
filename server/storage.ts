@@ -2,26 +2,26 @@ import type { Client, InsertClient } from "../shared/schema.js";
 import pkg from "pg";
 const { Client: PgClient } = pkg;
 
-// Create properly encoded database URL for Supabase
-function createDatabaseUrl(): string {
-  // Build the URL components manually since the password contains @
-  const host = "aws-0-us-east-2.pooler.supabase.com";
-  const port = "6543";
-  const username = "postgres.wnidzcvewbypxmshhudv";
-  const password = "2025Asjh";
-  const database = "postgres";
-  
-  // Use URL constructor to properly encode
-  const url = new URL(`postgresql://${host}:${port}/${database}`);
-  url.username = username;
-  url.password = password;
-  
-  return url.toString();
+// Get connection string from environment and ensure SSL
+function getConnectionString(): string {
+  const url = process.env.DATABASE_URL;
+  if (!url) {
+    throw new Error("DATABASE_URL env var is not set");
+  }
+  // Ensure sslmode=require is appended for Supabase
+  if (!url.includes("sslmode")) {
+    const separator = url.includes("?") ? "&" : "?";
+    return `${url}${separator}sslmode=require`;
+  }
+  return url;
 }
 
 // Create database client
 async function createDbClient() {
-  const client = new PgClient({ connectionString: createDatabaseUrl() });
+  const client = new PgClient({
+    connectionString: getConnectionString(),
+    ssl: { rejectUnauthorized: false },
+  });
   await client.connect();
   return client;
 }
