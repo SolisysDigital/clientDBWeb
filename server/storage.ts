@@ -1,4 +1,4 @@
-import type { Client, InsertClient } from "@shared/schema";
+import type { Client, InsertClient } from "../shared/schema.js";
 import pkg from "pg";
 const { Client: PgClient } = pkg;
 
