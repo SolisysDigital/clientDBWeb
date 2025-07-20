@@ -1,6 +1,6 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import { storage } from "./storage.ts";
+import { storage } from "./storage.js";
 import { insertClientSchema } from "@shared/schema";
 import { z } from "zod";
 
