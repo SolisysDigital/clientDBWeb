@@ -43,9 +43,8 @@ A clean, modern React application for managing client information with CRUD oper
    - Vercel will automatically detect the configuration
 
 3. **Set Environment Variables**:
-   - In Vercel dashboard, go to your project settings
-   - Add environment variable:
-     - `DATABASE_URL`: Your Supabase connection string
+   - In the Vercel project settings, add the following variable:
+     - `DATABASE_URL`: your Supabase connection string
 
 4. **Deploy**:
    - Click "Deploy" and Vercel will build and deploy your app
@@ -55,6 +54,8 @@ A clean, modern React application for managing client information with CRUD oper
 
 Required environment variable:
 - `DATABASE_URL`: Your Supabase PostgreSQL connection string
+
+Create a `.env` file in the project root and define `DATABASE_URL` for local development. Vercel will use the value configured in the project settings.
 
 ## Local Development
 
@@ -86,3 +87,5 @@ CREATE TABLE clients (
   created_at TIMESTAMP DEFAULT NOW() NOT NULL
 );
 ```
+
+
